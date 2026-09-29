@@ -1,0 +1,14 @@
+appId: dev.coconuts.island
+productName: Coconuts
+directories:
+  output: release
+files:
+  - dist/**/*
+  - desktop/**/*
+  - package.json
+  - "!node_modules/**/*"
+mac:
+  icon: desktop/icons/icon.icns
+  category: public.app-category.entertainment
+  target: dir
+  identity: null

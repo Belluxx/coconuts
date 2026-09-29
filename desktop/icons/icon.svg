@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <!-- The macOS app icon: public/logo.svg on a white tile, following the 824px Big Sur grid. -->
+  <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#f1f2ec"/></linearGradient>
+    <radialGradient id="rest"><stop offset="0" stop-color="#4a3a2c" stop-opacity=".2"/><stop offset="1" stop-color="#4a3a2c" stop-opacity="0"/></radialGradient>
+    <filter id="drop" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dy="10" stdDeviation="10" flood-color="#000" flood-opacity=".22"/></filter>
+  </defs>
+  <rect x="100" y="100" width="824" height="824" rx="185" fill="url(#tile)" filter="url(#drop)"/>
+  <ellipse cx="540" cy="752" rx="270" ry="52" fill="url(#rest)"/>
+  <svg x="152" y="136" width="720" height="720" viewBox="0 0 128 128">
+    <!-- A whole coconut behind a halved one. The half is drawn around its rim at 64,64 and then placed. -->
+    <defs>
+      <path id="half" d="M20 64a44 30 0 0 1 88 0 44 44 0 0 1-88 0Z"/>
+      <ellipse id="whole" cx="50" cy="51" rx="33" ry="31" transform="rotate(-25 50 51)"/>
+      <clipPath id="whole-clip"><use href="#whole"/></clipPath>
+      <clipPath id="half-clip"><use href="#half"/></clipPath>
+      <mask id="gap">
+        <rect width="128" height="128" fill="#fff"/>
+        <use href="#half" transform="translate(20 23) scale(.78) rotate(-18 64 64)" stroke="#000" stroke-width="8"/>
+      </mask>
+    </defs>
+  
+    <g mask="url(#gap)" clip-path="url(#whole-clip)">
+      <rect width="128" height="128" fill="#553725"/>
+      <ellipse cx="45" cy="45" rx="33" ry="31" transform="rotate(-25 45 45)" fill="#7a5236"/>
+      <ellipse cx="38" cy="36" rx="22" ry="17" transform="rotate(-35 38 36)" fill="#835a3c"/>
+      <!-- Ridges run from the three eyes. -->
+      <path d="M39 43c-7 8-11 19-10 31M55 39c9 3 17 10 22 21M47 48c1 9 4 18 9 26" fill="none" stroke="#5e3e29" stroke-width="1.4" stroke-linecap="round"/>
+      <g fill="#3b261a"><circle cx="41" cy="37" r="2.9"/><circle cx="52" cy="35" r="2.9"/><circle cx="47" cy="44" r="2.9"/></g>
+    </g>
+  
+    <g transform="translate(20 23) scale(.78) rotate(-18 64 64)">
+      <g clip-path="url(#half-clip)">
+        <rect width="128" height="128" fill="#553725"/>
+        <circle cx="58" cy="57" r="44" fill="#6f4a31"/>
+        <path d="M40 88q5 7 12 11M64 95v10M88 88q-5 7-12 11" fill="none" stroke="#4a2f1f" stroke-width="1.8" stroke-linecap="round" opacity=".6"/>
+      </g>
+      <!-- Shell, flesh, and the hollow with the far rim's shade. -->
+      <ellipse cx="64" cy="64" rx="44" ry="30" fill="#3b261a"/>
+      <ellipse cx="64" cy="64" rx="41.5" ry="27.8" fill="#fcf8ec"/>
+      <ellipse cx="64" cy="64.5" rx="29" ry="18.5" fill="#efe6d0"/>
+      <path d="M35 64.5a29 18.5 0 0 1 58 0 29 14 0 0 0-58 0Z" fill="#dccfb2"/>
+    </g>
+  </svg>
+</svg>

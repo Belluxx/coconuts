@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#e9eee1" />
+    <meta name="description" content="A little island, a world away. Explore a living tropical cove with sunlit water, swaying palms, and nothing on your to-do list." />
+    <link rel="stylesheet" href="/fonts/fonts.css" />
+    <title>Coconuts — Somewhere, unhurried.</title>
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="world" tabindex="0" aria-label="Tropical island. Move the mouse to look; click for continuous turning; Escape releases the cursor. W A S D or arrow keys to walk or swim. While swimming, move in the direction you look, Space rises, C dives, and Shift moves faster. F to rest at furniture or board the small boat. In the boat: W S to row, A D to steer, Shift to dismount. E to read a nearby message bottle. Question mark recalls movement hints."></canvas>
+
+      <div class="interface" id="interface">
+        <header class="topbar">
+          <span class="frame-rate" id="frame-rate" hidden></span>
+          <div class="top-actions">
+            <button class="round-button" id="sound" aria-label="Disable island sounds" aria-pressed="true" title="Island sounds">
+              <svg class="icon-sound" viewBox="0 0 24 24" aria-hidden="true"><path d="m11 4-6 5H2v6h3l6 5V4Zm4 4a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></svg>
+              <svg class="icon-mute" viewBox="0 0 24 24" aria-hidden="true"><path d="m11 4-6 5H2v6h3l6 5V4Zm5 5 6 6m0-6-6 6"/></svg>
+            </button>
+            <button class="round-button" id="capture" aria-label="Save a postcard" title="Save a postcard (P)">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h4l2-3h4l2 3h4a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1Z"/><circle cx="12" cy="12" r="4"/></svg>
+            </button>
+            <button class="round-button" id="settings-toggle" aria-label="Experience settings" aria-expanded="false" aria-controls="settings" title="Settings">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9m4 0h3M4 17h3m4 0h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>
+            </button>
+          </div>
+        </header>
+
+        <aside class="panel" id="settings" aria-label="Experience settings" inert>
+          <div class="panel-heading">
+            <h2>Island settings</h2>
+            <button class="close-panel" aria-label="Close settings">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+            </button>
+          </div>
+          <section aria-labelledby="sky-heading">
+            <h3 class="setting-label" id="sky-heading">Time of day</h3>
+            <div class="time-heading">
+              <output id="time-label" for="time"></output>
+              <button class="time-now" id="time-now" aria-pressed="true">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Live
+              </button>
+            </div>
+            <input class="time-slider" id="time" type="range" min="0" max="1435" step="5" aria-label="Time of day" />
+            <div class="time-scale" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+            <label class="settings-row sky-location" for="sky-country"><span>Sky location</span><select id="sky-country"></select></label>
+          </section>
+          <section class="settings-atmosphere" aria-label="Sound and visuals">
+            <div class="settings-row"><label for="volume">Island sounds</label><output id="volume-label" for="volume">55%</output></div>
+            <input class="volume-slider" id="volume" type="range" min="0" max="100" value="55" aria-label="Island sound volume" />
+            <label class="settings-row" for="quality">
+              <span>Visual quality</span>
+              <select id="quality"><option value="low">Low</option><option value="medium">Medium</option><option value="high">High</option></select>
+            </label>
+            <label class="settings-row" for="show-frame-rate"><span>Frame rate</span><input id="show-frame-rate" type="checkbox" role="switch" /></label>
+          </section>
+          <div class="settings-actions">
+            <button class="panel-action" id="agent-setup" hidden>Agent connections <span aria-hidden="true">↗</span></button>
+            <button class="panel-action" id="hide-ui">
+              Hide controls
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+          <details class="sky-credits">
+            <summary>Sky credits</summary>
+            <p>HYG v4.1 · David Nash (CC BY-SA 4.0). Milky Way · NASA/Goddard, Ernie Wright. Country centers · mledoze/countries (ODbL).</p>
+          </details>
+        </aside>
+
+        <div class="toast" id="toast" role="status" aria-live="polite"></div>
+      </div>
+
+      <button class="hide-return" id="show-ui" aria-label="Show controls" title="Show controls (H)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>
+      </button>
+
+      <div class="loader" id="loader">
+        <img class="loader-logo" src="/logo.svg" alt="" width="68" height="68" />
+        <h2>coconuts</h2>
+        <div class="loading" id="loading" role="progressbar" aria-label="Loading the island" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <p id="loading-step">Loading scripts</p>
+          <div class="loading-track"><div class="loading-fill" id="loading-fill"></div></div>
+          <p class="loading-percent" id="loading-percent">0%</p>
+        </div>
+        <div class="error-message" id="error-message">
+          <p>This island is made for desktop WebGPU. Open it in a WebGPU-capable desktop browser with hardware acceleration enabled.</p>
+          <button id="retry">Try again</button>
+          <details><summary>Technical details</summary><code></code></details>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

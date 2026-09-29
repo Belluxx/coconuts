@@ -1,0 +1,26 @@
+{
+  "name": "coconuts-island",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "desktop": "npm run build && electron .",
+    "desktop:dev": "COCONUTS_DEV_URL=http://localhost:5173/ electron .",
+    "desktop:package": "npm run build && electron-builder --mac --dir"
+  },
+  "dependencies": {
+    "three": "0.180.0"
+  },
+  "devDependencies": {
+    "@types/three": "^0.180.0",
+    "electron": "^44.4.5",
+    "electron-builder": "^26.15.3",
+    "marked": "^18.0.14",
+    "typescript": "~5.8.3",
+    "vite": "^6.3.5"
+  },
+  "main": "desktop/main.mjs"
+}

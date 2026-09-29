@@ -1,0 +1,85 @@
+.interaction-hints {
+  --hint-ink: #fff9e9;
+  color: var(--hint-ink);
+  text-shadow: 0 1px 3px #102923c0, 0 2px 14px #10292380;
+}
+.interaction-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 58px;
+  width: max-content;
+  max-width: calc(100% - 48px);
+  transform: translate(-50%, 6px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .35s, transform .35s, visibility .35s;
+}
+.interaction-cue::before {
+  content: '';
+  position: absolute;
+  inset: -16px -40px;
+  z-index: -1;
+  background: radial-gradient(ellipse, #142d2755, transparent 70%);
+  pointer-events: none;
+}
+.interaction-cue.visible { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+.interaction-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 44px;
+  padding: 6px 4px;
+  background: transparent;
+  color: inherit;
+  text-shadow: inherit;
+}
+.interaction-action span {
+  font: 24px/1.2 'Instrument Serif', Georgia, serif;
+  border-bottom: 1px solid transparent;
+  transition: border-color .2s;
+}
+.interaction-action:hover span { border-color: #fff9e966; }
+.interaction-hints kbd {
+  font: 10px/1.2 'DM Sans', sans-serif;
+  letter-spacing: .025em;
+}
+.interaction-action kbd {
+  display: grid;
+  place-items: center;
+  min-width: 25px;
+  height: 25px;
+  padding: 0 6px;
+  border: 1px solid #fff9e966;
+  border-radius: 3px;
+  background: #142d272e;
+  box-shadow: 0 1px 4px #10292318;
+}
+.movement-guide, .cursor-hint {
+  position: absolute;
+  bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.5;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .7s, visibility .7s;
+  pointer-events: none;
+  user-select: none;
+}
+.movement-guide { left: 50%; transform: translateX(-50%); white-space: nowrap; }
+.movement-guide span { display: flex; align-items: baseline; gap: 7px; }
+.movement-guide kbd { color: #fffdf5; }
+.movement-guide.visible { opacity: .9; visibility: visible; }
+.cursor-hint { left: 28px; gap: 8px; font-size: 10px; }
+.cursor-hint kbd { border-bottom: 1px solid #fff9e950; padding: 0 1px 2px; }
+.cursor-hint.visible { opacity: .65; visibility: visible; }
+@media (max-width: 760px) {
+  .cursor-hint { bottom: 22px; left: 20px; }
+  .cursor-hint span { display: none; }
+  .movement-guide { gap: 14px; font-size: 10px; }
+  .interaction-cue { bottom: 64px; }
+}
